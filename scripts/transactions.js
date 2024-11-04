@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const income_money = document.getElementById("income-money");
     const expense_money = document.getElementById("expense-money");
-    const balance_money = document.getElementById("balance-money");
+    const budget_money = document.getElementById("budget-money");
     const table_body = document.getElementById("table-body");
     const transactionForm = document.getElementById("transactionForm");
     const add_Transaction = document.getElementById("submitTransaction");
@@ -30,21 +30,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function updateDisplay() {
-        const balance = totalIncome - totalExpenses;
+        const budget = totalIncome - totalExpenses;
         income_money.textContent = totalIncome.toFixed(2);
         expense_money.textContent = totalExpenses.toFixed(2);
-        balance_money.textContent = balance.toFixed(2);
+        budget_money.textContent = budget.toFixed(2);
 
         // Select the card elements
         const incomeCard = document.querySelector(".income-money").closest(".card");
         const expenseCard = document.querySelector(".expense-money").closest(".card");
-        const balanceCard = document.querySelector(".balance-money").closest(".card");
+        const budgetCard = document.querySelector(".budget-money").closest(".card");
 
         // Update card background colors based on conditions
-        updateBackgroundColor(incomeCard, expenseCard, balanceCard, balance);
+        updateBackgroundColor(incomeCard, expenseCard, budgetCard, budget);
     }
 
-    function updateBackgroundColor(incomeCard, expenseCard, balanceCard, balance) {
+    function updateBackgroundColor(incomeCard, expenseCard, budgetCard, budget) {
         const expensePercentage = (Math.abs(totalExpenses) / totalIncome) * 100;
         const incomeStatus = totalIncome - Math.abs(totalExpenses);
 
@@ -66,13 +66,13 @@ document.addEventListener("DOMContentLoaded", function () {
             incomeCard.style.backgroundColor = "#d6ffe6";
         }
 
-        // Set balance card background color
-        if (balance < 0) {
-            balanceCard.style.backgroundColor = "#FFD7D7";
-        } else if (balance === 0) {
-            balanceCard.style.backgroundColor = "#ffeacc";
+        // Set budget card background color
+        if (budget < 0) {
+            budgetCard.style.backgroundColor = "#FFD7D7";
+        } else if (budget === 0) {
+            budgetCard.style.backgroundColor = "#ffeacc";
         } else {
-            balanceCard.style.backgroundColor = "#d6ffe6";
+            budgetCard.style.backgroundColor = "#d6ffe6";
         }
     }
 

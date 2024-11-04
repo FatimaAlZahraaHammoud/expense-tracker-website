@@ -32,17 +32,6 @@
                     <line x1="12" x2="12" y1="2" y2="22"/>
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
-                <p class="budget-money" id="budget-money">0</p>
-                <button id="set-budget" class="set-budget-btn">Set Budget</button>
-            </div>
-            <p class="type">Total Budget</p>
-        </div>
-        <div class="card">
-            <div class="amount">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dollar-sign">
-                    <line x1="12" x2="12" y1="2" y2="22"/>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                </svg>
                 <p class="income-money" id="income-money">0</p>
             </div>
             <p class="type">Total income</p>
@@ -63,9 +52,9 @@
                     <line x1="12" x2="12" y1="2" y2="22"/>
                     <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                 </svg>
-                <p class="balance-money" id="balance-money">0</p>
+                <p class="budget-money" id="budget-money">0</p>
             </div>
-            <p class="type">Total balance</p>
+            <p class="type">Total Budget</p>
         </div>
     </div>
 
@@ -158,28 +147,61 @@
         </div>
     </div>
 
-    <!--Transactions table-->
+    <!--Transactions table and filter-->
     
-    <div class="transactions-container" id="transactions-container">
-        <div class="top-div">
-            <h4>Expenses</h4>
-            <i class="filter"></i>
+    <div class="table-and-filter">
+        <div class="filter-container">
+            <h3>Filter Transactions</h3>
+            <div class="filter-groups">
+                <div class="filter-group">
+                    <label for="min-price">Min Price:</label>
+                    <input type="number" id="min-price" placeholder="0">
+                </div>
+                <div class="filter-group">
+                    <label for="max-price">Max Price:</label>
+                    <input type="number" id="max-price" placeholder="1000">
+                </div>
+                <div class="filter-group">
+                    <label for="type">Type:</label>
+                    <select id="type">
+                        <option value="">All</option>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="filter-group">
+                    <label for="notes">Notes:</label>
+                    <input type="text" id="notes" placeholder="Search notes...">
+                </div>
+                <div class="apply"><button id="apply-filters" class="bg-green">Apply Filters</button></div>
+            </div>
         </div>
 
-        <div class="transactions-table">
-            <table>
-                <thead>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Type</th>
-                    <th>Amount</th>
-                    <th>Notes</th>
-                    <th>Delete</th>
-                </thead>
+        
+        <div class="transactions-container" id="transactions-container">
+            <div class="top-div">
+                <h4>Expenses</h4>
+            </div>
 
-                <tbody class="table-body" id="table-body">
-                </tbody>
-            </table>
+            <div class="transactions-table">
+                <table>
+                    <thead>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Notes</th>
+                        <th>Delete</th>
+                    </thead>
+
+                    <tbody class="table-body" id="table-body">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
