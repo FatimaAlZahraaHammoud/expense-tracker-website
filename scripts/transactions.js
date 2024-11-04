@@ -144,16 +144,26 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="dialog-content">
                 <h3>Transaction Details</h3>
                 <div class="transaction-details">
-                    <label>Category: <input type="text" id="edit-category" value="${transaction.category}" disabled></label>
-                    <label>Type: <input type="text" id="edit-type" value="${transaction.type}" disabled></label>
-                    <label>Amount: <input type="number" id="edit-amount" value="${Math.abs(transaction.amount).toFixed(2)}" disabled></label>
-                    <label>Date: <input type="date" id="edit-date" value="${transaction.date}" disabled></label>
-                    <label>Notes: <input type="text" id="edit-notes" value="${transaction.notes}" disabled></label>
+                    <div class="detail-item">
+                        <label>Category: <input type="text" id="edit-category" value="${transaction.category}" disabled></label>
+                    </div>
+                    <div class="detail-item">
+                        <label>Type: <input type="text" id="edit-type" value="${transaction.type}" disabled></label>
+                    </div>
+                    <div class="detail-item">
+                        <label>Amount: <input type="number" id="edit-amount" value="${Math.abs(transaction.amount).toFixed(2)}" disabled></label>
+                    </div>
+                    <div class="detail-item">
+                        <label>Date: <input type="date" id="edit-date" value="${transaction.date}" disabled></label>
+                    </div>
+                    <div class="detail-item">
+                        <label>Notes: <input type="text" id="edit-notes" value="${transaction.notes}" disabled></label>
+                    </div>
                 </div>
                 <div class="dialog-buttons">
                     <button class="edit-transaction" id="edit-transaction">Edit</button>
                     <button class="save-transaction" id="save-transaction" style="display: none;">Save</button>
-                    <button id="close-dialog">Close</button>
+                    <button id="close-dialog" class="close-dialog">Close</button>
                 </div>
             </div>
         `;
