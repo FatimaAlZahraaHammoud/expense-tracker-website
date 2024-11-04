@@ -28,6 +28,54 @@ document.addEventListener("DOMContentLoaded", function () {
     let transactions = JSON.parse(localStorage.getItem("transactions"));
     let transactionCounter = transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
 
+
+    function updateDisplay() {
+        const balance = totalIncome + totalExpenses;
+        income_money.textContent = totalIncome.toFixed(2);
+        expense_money.textContent = -(totalExpenses.toFixed(2));
+        balance_money.textContent = balance.toFixed(2);
+
+        // Select the card elements
+        const incomeCard = document.querySelector(".income-money").closest(".card");
+        const expenseCard = document.querySelector(".expense-money").closest(".card");
+        const balanceCard = document.querySelector(".balance-money").closest(".card");
+
+        // Update card background colors based on conditions
+        updateBackgroundColor(incomeCard, expenseCard, balanceCard, balance);
+    }
+
+    function updateBackgroundColor(incomeCard, expenseCard, balanceCard, balance) {
+        const expensePercentage = (Math.abs(totalExpenses) / totalIncome) * 100;
+        const incomeStatus = totalIncome - Math.abs(totalExpenses);
+
+        // Set expense card background color
+        if (expensePercentage > 50) {
+            expenseCard.style.backgroundColor = "#FFD7D7";
+        } else if (expensePercentage > 25) {
+            expenseCard.style.backgroundColor = "#fff6e9";
+        } else {
+            expenseCard.style.backgroundColor = "#ebfbf1";
+        }
+
+        // Set income card background color
+        if (incomeStatus < 0) {
+            incomeCard.style.backgroundColor = "#FFD7D7";
+        } else if (incomeStatus < totalIncome * 0.25) {
+            incomeCard.style.backgroundColor = "#fff6e9";
+        } else {
+            incomeCard.style.backgroundColor = "#ebfbf1";
+        }
+
+        // Set balance card background color
+        if (balance < 0) {
+            balanceCard.style.backgroundColor = "#FFD7D7";
+        } else if (balance === 0) {
+            balanceCard.style.backgroundColor = "#fff6e9";
+        } else {
+            balanceCard.style.backgroundColor = "#ebfbf1";
+        }
+    }
+
     // add transactions
 
     function addTransaction(){
@@ -188,10 +236,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // delete transaction
 
     function deleteTransaction(id, row) {
+        const transaction = transactions.find(t => t.id === id);
+        if (transaction.type === "income") {
+            totalIncome -= Math.abs(transaction.amount);
+        }
+        else {
+            totalExpenses -= Math.abs(transaction.amount);
+        }
+
         transactions = transactions.filter(t => t.id !== id);
         localStorage.setItem("transactions", JSON.stringify(transactions));
     
         row.remove();
+        updateDisplay();
     }
 
     // load transactions on page load
@@ -205,6 +262,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 totalExpenses += transaction.amount;
             }
         });
+
+        updateDisplay();
     }
 
     loadTransactions();
