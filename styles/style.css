@@ -128,7 +128,7 @@ body{
     text-align: center;
 }
 
-.add-form .submitTransaction, .add .cancelTransaction {
+.add-form .submitTransaction, .add-form .cancelTransaction {
     color: white;
     padding: 10px 15px;
     border: none;
