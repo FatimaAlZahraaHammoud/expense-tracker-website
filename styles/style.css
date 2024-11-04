@@ -231,3 +231,26 @@ body{
     color: red;
     text-align: center;
 }
+
+/*Style Dialogs*/
+
+/*Style delete button*/
+
+.delete-transaction{
+    padding: 10px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s;
+    text-align: center;
+    display: none;
+}
+
+tr:hover .delete-transaction{
+    display: inline;
+}
+
+tr:hover .delete-transaction:hover{
+    background-color: red;
+}

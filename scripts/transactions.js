@@ -25,8 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    let transactions = JSON.parse(localStorage.getItem("transactions"));
     let transactionCounter = transactions.length > 0 ? Math.max(...transactions.map(t => t.id)) + 1 : 1;
+
     // add transactions
 
     function addTransaction(){
@@ -171,15 +172,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${transaction.type}</td>
                 <td>${Math.abs(transaction.amount).toFixed(2)}</td>
                 <td>${transaction.notes}</td>
-                <td><button class="delete-transaction" id="delete-transaction">Delete</button></td>
+                <td><button class="bg-red-light delete-transaction" >Delete</button></td>
             `;
             table_body.appendChild(row);
 
             row.addEventListener("click", () => openDialogTransaction(transaction));
-            document.getElementById("delete-transaction").addEventListener("click", (event) => {
-                //event.stopPropagation();  // Prevent the row click event
-                deleteTransaction(transaction.id);
+
+            const deleteButton = row.querySelector(".delete-transaction");
+            deleteButton.addEventListener("click", (event) => {
+                event.stopPropagation();
+                deleteTransaction(transaction.id, row);
             });
+    }
+
+    // delete transaction
+
+    function deleteTransaction(id, row) {
+        transactions = transactions.filter(t => t.id !== id);
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+    
+        row.remove();
     }
 
     // load transactions on page load
