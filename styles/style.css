@@ -41,6 +41,22 @@ body{
     margin-left: 10px;
 }
 
+.set-budget-btn {
+    font-size: 0.8em;
+    margin-left: 35px;
+    padding: 4px 8px;
+    cursor: pointer;
+    background-color: #6a0dad; /* Purple background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.budget-container .card.budget-card {
+    background-color: #6a0dad; /* Purple background for budget card */
+    color: white;
+}
+
 
 /*Section 2: Expenses categories and Add transaction form*/
 

@@ -30,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function updateDisplay() {
-        const balance = totalIncome + totalExpenses;
+        const balance = totalIncome - totalExpenses;
         income_money.textContent = totalIncome.toFixed(2);
-        expense_money.textContent = -(totalExpenses.toFixed(2));
+        expense_money.textContent = totalExpenses.toFixed(2);
         balance_money.textContent = balance.toFixed(2);
 
         // Select the card elements
@@ -52,27 +52,27 @@ document.addEventListener("DOMContentLoaded", function () {
         if (expensePercentage > 50) {
             expenseCard.style.backgroundColor = "#FFD7D7";
         } else if (expensePercentage > 25) {
-            expenseCard.style.backgroundColor = "#fff6e9";
+            expenseCard.style.backgroundColor = "#ffeacc";
         } else {
-            expenseCard.style.backgroundColor = "#ebfbf1";
+            expenseCard.style.backgroundColor = "#d6ffe6";
         }
 
         // Set income card background color
         if (incomeStatus < 0) {
             incomeCard.style.backgroundColor = "#FFD7D7";
         } else if (incomeStatus < totalIncome * 0.25) {
-            incomeCard.style.backgroundColor = "#fff6e9";
+            incomeCard.style.backgroundColor = "#ffeacc";
         } else {
-            incomeCard.style.backgroundColor = "#ebfbf1";
+            incomeCard.style.backgroundColor = "#d6ffe6";
         }
 
         // Set balance card background color
         if (balance < 0) {
             balanceCard.style.backgroundColor = "#FFD7D7";
         } else if (balance === 0) {
-            balanceCard.style.backgroundColor = "#fff6e9";
+            balanceCard.style.backgroundColor = "#ffeacc";
         } else {
-            balanceCard.style.backgroundColor = "#ebfbf1";
+            balanceCard.style.backgroundColor = "#d6ffe6";
         }
     }
 
@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Reset the form
         resetForm();
+        updateDisplay();
     }
 
     // Reset the form
@@ -187,6 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 date: document.getElementById("edit-date").value,
                 notes: document.getElementById("edit-notes").value,
             };
+
+            updateDisplay();
 
             console.log("Edited Transaction:", editedTransaction);
 
@@ -259,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (transaction.type === "income") {
                 totalIncome += transaction.amount;
             } else {
-                totalExpenses += transaction.amount;
+                totalExpenses += Math.abs(transaction.amount);
             }
         });
 
