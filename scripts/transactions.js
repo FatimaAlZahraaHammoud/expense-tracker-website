@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const add_Transaction = document.getElementById("submitTransaction");
     const cancel_Transaction = document.getElementById("cancelTransaction");
 
+    // track the income and expense
     let totalIncome = 0;
     let totalExpenses = 0;
 
@@ -19,12 +20,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // if cancel button is clicked
     cancel_Transaction.addEventListener("click", () =>{
         transactionForm.reset();
+        const existingMessage = document.getElementById("errorMessage");
+        if (existingMessage) {
+            existingMessage.remove();
+        }
     });
 
     // check for transactions in local storage
 
     if(!localStorage.getItem("transactions")){
         localStorage.setItem("transactions", JSON.stringify([]));
+
     }
 
     let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
@@ -33,17 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function addTransaction(){
 
+        // remove the error message
         const existingMessage = document.getElementById("errorMessage");
         if (existingMessage) {
             existingMessage.remove();
         }
 
+        // get values from the form
         const category = document.getElementById("category").value;
         const amount = parseFloat(document.getElementById("amount").value);
         const type = document.getElementById("type").value;
         const date = document.getElementById("date").value;
         const notes = document.getElementById("notes").value;
 
+        // check if some values are missing
         if (!category || isNaN(amount) || amount <= 0 || !type || !date || !notes) {
             const message = document.createElement("p");
             message.id = "errorMessage";
@@ -53,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // track income and expense
         if (type === "income") {
             totalIncome += amount;
             transactions.push({ category, amount, type, date, notes }); 
@@ -62,8 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
             transactions.push({ category, amount: -amount, type, date, notes }); 
         }
 
+        // add the transaction to the local storage
         localStorage.setItem("transactions", JSON.stringify(transactions));
 
+        // add the transaction to the table
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>${date}</td>
