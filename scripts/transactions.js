@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // get values from the form
         const category = document.getElementById("category").value;
         const amount = parseFloat(document.getElementById("amount").value);
-        const type = document.getElementById("type").value;
+        const type = document.getElementById("type_of_transaction").value;
         const date = document.getElementById("date").value;
         const notes = document.getElementById("notes").value;
 
@@ -262,6 +262,92 @@ document.addEventListener("DOMContentLoaded", function () {
     
         row.remove();
         updateDisplay();
+    }
+
+    // filter table
+
+    const apply_filter_by_price = document.getElementById("apply-filter-price");
+    const apply_filter_by_type = document.getElementById("apply-filter-type");
+    const apply_filter_by_date = document.getElementById("apply-filter-date");
+    const apply_filter_by_notes = document.getElementById("apply-filter-notes");
+    const apply_filter_all = document.getElementById("apply-filter-all");
+    apply_filter_by_price.addEventListener("click", filterByPrice);
+    apply_filter_by_type.addEventListener("click", filterByType);
+    apply_filter_by_date.addEventListener("click", filterByDate);
+    apply_filter_by_notes.addEventListener("click", filterByNotes);
+    apply_filter_all.addEventListener("click", filterByAll);
+
+    function filterByAll(){
+        filterByPrice();
+        filterByType();
+        filterByDate();
+        filterByType();
+        filterByNotes();
+    }
+
+    // Function to filter transactions by price
+    function filterByPrice() {
+        const minPrice = parseFloat(document.getElementById("min-price").value) || 0;
+        const maxPrice = parseFloat(document.getElementById("max-price").value) || Infinity;
+        const transactions = document.querySelectorAll("#table-body tr");
+    
+        transactions.forEach(transaction => {
+            const transactionPrice = parseFloat(transaction.cells[3]?.textContent || 0);
+            if (transactionPrice >= minPrice && transactionPrice <= maxPrice) {
+                transaction.style.display = "";
+            }
+            else {
+                transaction.style.display = "none";
+            }
+
+        });
+    }
+
+    // Function to filter transactions by type
+    function filterByType() {
+        const type = document.getElementById("type-filter").value; // Get the selected type
+        const transactions = document.querySelectorAll("#table-body tr");
+
+        console.log("Selected Type:", type);
+        
+        transactions.forEach(transaction => {
+            const transactionType = transaction.cells[2]?.textContent || "";
+            if (!type || transactionType.toLowerCase() === type.toLowerCase()) {
+                transaction.style.display = "";
+            } else {
+                transaction.style.display = "none";
+            }
+        });
+    }
+
+    // Function to filter transactions by date
+    function filterByDate() {
+        const date = document.getElementById("date-filter").value;
+        const transactions = document.querySelectorAll("#table-body tr");
+    
+        transactions.forEach(transaction => {
+            const transactionDate = transaction.cells[0]?.textContent || "";
+            if (!date || transactionDate === date) {
+                transaction.style.display = "";
+            } else {
+                transaction.style.display = "none";
+            }
+        });
+    }
+    
+    // Function to filter transactions by notes
+    function filterByNotes() {
+        const notes = document.getElementById("notes-filter").value.toLowerCase();
+        const transactions = document.querySelectorAll("#table-body tr");
+    
+        transactions.forEach(transaction => {
+            const transactionNotes = transaction.cells[4]?.textContent || "";
+            if (!notes || transactionNotes.includes(notes)) {
+                transaction.style.display = "";
+            } else {
+                transaction.style.display = "none";
+            }
+        });
     }
 
     // load transactions on page load

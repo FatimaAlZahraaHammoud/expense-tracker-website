@@ -188,6 +188,7 @@ body{
 
 .filter-container{
     margin-left: 40px;
+    width: 30%;
 }
 
 .filter-groups{
@@ -199,7 +200,7 @@ body{
     box-sizing: border-box;
 }
 
-.filter-groups input{
+.filter-groups input, .filter-groups select{
     width: calc(100% - 20px);
     padding: 10px; ;
     border: 1px solid #ccc; 
@@ -228,12 +229,23 @@ body{
     background-color: #087C3E;
 }
 
+.filter-group {
+    margin-bottom: 5px;
+}
+
+.filter-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
 /* Style table body*/
 
 .transactions-container{
     width: 60%;
     margin-bottom: 20px;
-    height: 55vh;
+    height: 95vh;
 }
 
 .transactions-table table {
@@ -246,6 +258,10 @@ body{
 
 .transactions-table thead{
     font-size: 15px;
+}
+
+.transactions-table tbody{
+    font-size: 14px;
 }
 
 .transactions-table th,
